@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Healthy Coffee | Café & Lounge · Bd Abdelmoumen, Casablanca</title>
+<meta name="description" content="Healthy Coffee, café et lounge au 214 Bd Abdelmoumen, Casablanca. Petit-déjeuner, cafés, boissons et snacks. Ouvert jusqu'à 22h30." />
+<link rel="icon" href="logo.png" />
+<meta name="theme-color" content="#0f1a14" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = { theme: { extend: {
+    colors: { forest:'#0f1a14', moss:'#16261d', leaf:'#4ade80', sage:'#a7c4a0', crema:'#e8c99b', bean:'#6b4226', cream:'#f6efe4' },
+    fontFamily: { display:['Fraunces','serif'], body:['Inter','sans-serif'] }
+  } } }
+</script>
+<style>
+  body { background:#0f1a14; color:#efe7da; font-family:Inter,sans-serif; overflow-x:hidden; }
+  .glass { background:rgba(246,239,228,.05); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px); border:1px solid rgba(246,239,228,.1); }
+  .grad-text { background:linear-gradient(90deg,#e8c99b,#a7c4a0 60%,#4ade80); -webkit-background-clip:text; background-clip:text; color:transparent; }
+  .grain { background-image:radial-gradient(rgba(232,201,155,.06) 1px,transparent 1px); background-size:22px 22px; mask-image:radial-gradient(ellipse at center,#000 30%,transparent 75%); -webkit-mask-image:radial-gradient(ellipse at center,#000 30%,transparent 75%); }
+  .btn-main { background:#e8c99b; color:#0f1a14; transition:transform .25s, box-shadow .25s; }
+  .btn-main:hover { transform:translateY(-2px); box-shadow:0 12px 40px -8px rgba(232,201,155,.6); }
+  .tilt { transform-style:preserve-3d; transition:transform .2s ease-out; will-change:transform; }
+  .tilt .pop { transform:translateZ(36px); }
+  .card-glow { position:relative; overflow:hidden; }
+  .card-glow::before { content:""; position:absolute; inset:0; background:radial-gradient(380px circle at var(--mx,50%) var(--my,50%),rgba(232,201,155,.14),transparent 40%); opacity:0; transition:opacity .3s; pointer-events:none; }
+  .card-glow:hover::before { opacity:1; }
+  .marquee { display:flex; width:max-content; animation:marquee 30s linear infinite; }
+  @keyframes marquee { to { transform:translateX(-50%); } }
+  .reveal { opacity:0; transform:translateY(40px); }
+  #loader { transition:opacity .6s, visibility .6s; } #loader.done { opacity:0; visibility:hidden; }
+  .steam path { animation:steam 2.4s ease-in-out infinite; } .steam path:nth-child(2){animation-delay:.6s} .steam path:nth-child(3){animation-delay:1.2s}
+  @keyframes steam { 0%{opacity:0; transform:translateY(8px)} 50%{opacity:.8} 100%{opacity:0; transform:translateY(-14px)} }
+  .tab.active { background:#e8c99b; color:#0f1a14; }
+  ::-webkit-scrollbar{width:8px} ::-webkit-scrollbar-track{background:#0f1a14} ::-webkit-scrollbar-thumb{background:#2b3d31;border-radius:8px}
+  @media (prefers-reduced-motion: reduce){ .marquee,.steam path{animation:none} .reveal{opacity:1;transform:none} }
+</style>
+</head>
+<body class="antialiased">
+<!-- LOGO : placez le fichier logo.png (logo officiel, carré, ~512px) à côté de index.html -->
+<template id="logoFallback"><span class="w-10 h-10 rounded-full border-2 border-crema grid place-items-center bg-moss"><svg class="w-5 h-5 text-leaf" viewBox="0 0 24 24" fill="currentColor"><path d="M17 3C9 3 4 8 4 15c0 2 .5 4 1.5 5.5C7 14 11 10 17 8c-5 3-8 7-9.5 13 1 .3 2 .5 3 .5 7 0 10.5-6 10.5-13 0-2-.5-4-1.5-5.5H17z"/></svg></span></template>
+
+<div id="loader" class="fixed inset-0 z-[100] bg-forest flex flex-col items-center justify-center gap-5">
+  <img src="logo.png" alt="" class="w-28 h-28 rounded-full object-cover ring-4 ring-crema/40 animate-pulse" onerror="this.remove()" />
+  <svg class="w-16 h-16" viewBox="0 0 64 64" fill="none"><g class="steam" stroke="#e8c99b" stroke-width="2.5" stroke-linecap="round"><path d="M24 14c-3 4 3 6 0 10"/><path d="M32 12c-3 4 3 6 0 10"/><path d="M40 14c-3 4 3 6 0 10"/></g><path d="M14 30h36v8a18 18 0 0 1-36 0z" fill="#e8c99b"/><path d="M50 33h3a6 6 0 0 1 0 12h-4" stroke="#e8c99b" stroke-width="3"/></svg>
+  <div class="w-48 h-1 bg-white/10 rounded-full overflow-hidden"><div id="loadbar" class="h-full w-0 bg-gradient-to-r from-crema to-leaf transition-all duration-300"></div></div>
+</div>
+
+<header id="nav" class="fixed top-0 inset-x-0 z-50 transition-all duration-300">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
+    <a href="#top" class="flex items-center gap-3">
+      <img src="logo.png" alt="Healthy Coffee" class="logo-img w-12 h-12 rounded-full object-cover ring-2 ring-crema/60 shadow-lg" onerror="this.replaceWith(document.getElementById('logoFallback').content.cloneNode(true))" />
+      <span class="font-display text-xl font-bold leading-none">Healthy<br><span class="text-[11px] tracking-[.35em] text-crema font-body font-semibold">COFFEE</span></span>
+    </a>
+    <nav class="hidden md:flex items-center gap-8 text-sm text-cream/70">
+      <a href="#menu" class="hover:text-crema transition">Menu</a>
+      <a href="#ambiance" class="hover:text-crema transition">Ambiance</a>
+      <a href="#infos" class="hover:text-crema transition">Infos</a>
+      <a href="#contact" class="hover:text-crema transition">Contact</a>
+    </nav>
+    <div class="flex items-center gap-3">
+      <a href="tel:+212522529666" class="hidden sm:inline-flex btn-main font-semibold text-sm px-5 py-2.5 rounded-full">05 22 52 96 66</a>
+      <button id="burger" class="md:hidden w-10 h-10 glass rounded-xl grid place-items-center" aria-label="Menu"><svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+  </div>
+  <div id="mobileMenu" class="md:hidden hidden mx-4 glass rounded-2xl p-6 flex-col gap-4 text-lg">
+    <a href="#menu">Menu</a><a href="#ambiance">Ambiance</a><a href="#infos">Infos</a><a href="#contact">Contact</a>
+  </div>
+</header>
+
+<main id="top">
+<section class="relative min-h-screen flex items-center overflow-hidden">
+  <div class="absolute inset-0 grain"></div>
+  <div class="absolute -top-40 -left-40 w-[520px] h-[520px] rounded-full bg-leaf/10 blur-[140px]"></div>
+  <div class="absolute bottom-0 right-0 w-[560px] h-[560px] rounded-full bg-crema/15 blur-[150px]"></div>
+  <div id="scene" class="absolute inset-0 lg:left-[40%] opacity-50 lg:opacity-100"></div>
+
+  <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 w-full pt-28 pb-16">
+    <div class="max-w-xl">
+      <div class="hero-in inline-flex items-center gap-2 glass rounded-full px-4 py-1.5 text-xs text-cream/80 mb-6">
+        <span class="w-2 h-2 rounded-full bg-leaf animate-pulse"></span> Ouvert aujourd'hui · jusqu'à 22h30
+      </div>
+      <h1 class="hero-in font-display font-bold text-5xl sm:text-6xl lg:text-7xl leading-[1.03]">
+        Votre pause<br><span class="grad-text italic">healthy</span> à Casa.
+      </h1>
+      <p class="hero-in mt-6 text-lg text-cream/65 max-w-md">Café de spécialité, petit-déjeuner, douceurs et boissons fraîches, dans un lounge chaleureux sur le boulevard Abdelmoumen.</p>
+      <div class="hero-in mt-9 flex flex-wrap gap-4">
+        <a href="#menu" class="btn-main font-semibold px-7 py-3.5 rounded-full">Voir le menu</a>
+        <a href="https://www.google.com/maps/dir/?api=1&destination=33.5652891,-7.627224" target="_blank" rel="noopener" class="glass font-semibold px-7 py-3.5 rounded-full hover:bg-white/10 transition">Itinéraire</a>
+        <a href="https://www.instagram.com/healthy.coffee22/" target="_blank" rel="noopener" aria-label="Instagram" class="glass w-[52px] h-[52px] rounded-full grid place-items-center hover:bg-white/10 transition"><svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg></a>
+      </div>
+      <div class="hero-in mt-12 flex flex-wrap items-center gap-x-8 gap-y-3 text-sm text-cream/60">
+        <img src="logo.png" alt="Logo Healthy Coffee" class="w-14 h-14 rounded-full object-cover ring-2 ring-crema/50" onerror="this.remove()" />
+        <p><span class="text-crema">★★★★</span> <span class="text-cream font-semibold">4.1</span> · 229 avis Google</p>
+        <p><span class="text-cream font-semibold">50–100 DH</span> / personne</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="border-y border-cream/5 bg-moss/60 py-5 overflow-hidden">
+  <div class="marquee font-display italic text-2xl sm:text-3xl text-cream/25 gap-12 whitespace-nowrap">
+    <span>Café allongé ☕</span><span>Cappuccino ☕</span><span>Petit-déjeuner ☕</span><span>Jus frais ☕</span><span>Omelettes ☕</span><span>Pâtisseries ☕</span><span>Lounge ☕</span>
+    <span>Café allongé ☕</span><span>Cappuccino ☕</span><span>Petit-déjeuner ☕</span><span>Jus frais ☕</span><span>Omelettes ☕</span><span>Pâtisseries ☕</span><span>Lounge ☕</span>
+  </div>
+</div>
+
+<!-- MENU -->
+<section id="menu" class="py-28">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6">
+    <div class="reveal flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
+      <div>
+        <p class="text-leaf font-semibold tracking-widest text-xs mb-3">LA CARTE</p>
+        <h2 class="font-display font-bold text-4xl sm:text-5xl">Notre <span class="grad-text italic">menu</span></h2>
+      </div>
+      <div class="flex flex-wrap gap-2" id="tabs"></div>
+    </div>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6" id="menuGrid"></div>
+    <p class="reveal mt-10 text-center text-cream/45 text-sm">Carte complète et prix disponibles sur place.</p>
+  </div>
+</section>
+
+<!-- AMBIANCE -->
+<section id="ambiance" class="relative py-28 bg-moss/50">
+  <div class="absolute inset-0 grain opacity-60"></div>
+  <div class="relative max-w-7xl mx-auto px-4 sm:px-6 grid lg:grid-cols-2 gap-14 items-center">
+    <div class="reveal">
+      <p class="text-leaf font-semibold tracking-widest text-xs mb-3">L'ESPACE</p>
+      <h2 class="font-display font-bold text-4xl sm:text-5xl leading-tight">Un lounge pour<br><span class="grad-text italic">prendre son temps.</span></h2>
+      <p class="mt-6 text-cream/65 text-lg">Banquettes confortables, boiseries chaleureuses et terrasse lumineuse. Idéal pour un petit-déjeuner, un rendez-vous de travail ou une soirée entre amis.</p>
+      <div class="mt-8 grid grid-cols-2 gap-4">
+        <div class="glass rounded-2xl p-5"><p class="text-2xl mb-1">🪑</p><p class="font-semibold">Sur place</p><p class="text-cream/55 text-sm">Salle & terrasse</p></div>
+        <div class="glass rounded-2xl p-5"><p class="text-2xl mb-1">🚗</p><p class="font-semibold">Retrait voiture</p><p class="text-cream/55 text-sm">Service au véhicule</p></div>
+        <div class="glass rounded-2xl p-5"><p class="text-2xl mb-1">🌙</p><p class="font-semibold">Jusqu'à 22h30</p><p class="text-cream/55 text-sm">Du matin au soir</p></div>
+        <div class="glass rounded-2xl p-5"><p class="text-2xl mb-1">♀</p><p class="font-semibold">Entreprise féminine</p><p class="text-cream/55 text-sm">Fièrement dirigée</p></div>
+      </div>
+    </div>
+    <div class="reveal grid grid-cols-2 gap-4" id="gallery"></div>
+  </div>
+</section>
+
+<!-- INFOS -->
+<section id="infos" class="py-28">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6">
+    <div class="reveal text-center mb-14">
+      <p class="text-leaf font-semibold tracking-widest text-xs mb-3">INFOS PRATIQUES</p>
+      <h2 class="font-display font-bold text-4xl sm:text-5xl">Bon à savoir</h2>
+    </div>
+    <div class="grid md:grid-cols-3 gap-6">
+      <div class="reveal glass rounded-3xl p-8 text-center"><p class="font-display text-5xl text-crema mb-2">4.1</p><p class="text-crema mb-2">★★★★</p><p class="text-cream/60">229 avis sur Google</p></div>
+      <div class="reveal glass rounded-3xl p-8 text-center"><p class="font-display text-5xl text-crema mb-2">22h30</p><p class="text-cream/60 mt-4">Heure de fermeture</p></div>
+      <div class="reveal glass rounded-3xl p-8 text-center"><p class="font-display text-5xl text-crema mb-2">50–100</p><p class="text-cream/60 mt-4">DH par personne</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="py-28 bg-moss/50">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 grid lg:grid-cols-2 gap-10">
+    <div class="reveal">
+      <p class="text-leaf font-semibold tracking-widest text-xs mb-3">CONTACT</p>
+      <h2 class="font-display font-bold text-4xl sm:text-5xl mb-10">On vous attend</h2>
+      <div class="space-y-4">
+        <a href="https://www.google.com/maps/dir/?api=1&destination=33.5652891,-7.627224" target="_blank" rel="noopener" class="glass rounded-2xl p-6 flex items-center gap-5 hover:bg-white/10 transition">
+          <span class="w-12 h-12 rounded-xl bg-crema/15 grid place-items-center text-xl">📍</span>
+          <div><p class="text-cream/50 text-sm">Adresse</p><p class="font-semibold">214 Bd Abdelmoumen, Casablanca 20250</p></div>
+        </a>
+        <a href="tel:+212522529666" class="glass rounded-2xl p-6 flex items-center gap-5 hover:bg-white/10 transition">
+          <span class="w-12 h-12 rounded-xl bg-leaf/15 grid place-items-center text-xl">📞</span>
+          <div><p class="text-cream/50 text-sm">Téléphone</p><p class="font-semibold">05 22 52 96 66</p></div>
+        </a>
+        <a href="https://www.instagram.com/healthy.coffee22/" target="_blank" rel="noopener" class="glass rounded-2xl p-6 flex items-center gap-5 hover:bg-white/10 transition">
+          <span class="w-12 h-12 rounded-xl bg-pink-500/15 grid place-items-center text-pink-400"><svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg></span>
+          <div><p class="text-cream/50 text-sm">Instagram</p><p class="font-semibold">@healthy.coffee22</p></div>
+        </a>
+        <div class="glass rounded-2xl p-6 flex items-center gap-5">
+          <span class="w-12 h-12 rounded-xl bg-sage/15 grid place-items-center text-xl">🕙</span>
+          <div><p class="text-cream/50 text-sm">Horaires</p><p class="font-semibold">Tous les jours · fermeture 22h30</p></div>
+        </div>
+      </div>
+    </div>
+    <div class="reveal rounded-3xl overflow-hidden border border-cream/10 min-h-[420px]">
+      <iframe title="Carte Healthy Coffee" class="w-full h-full min-h-[420px] grayscale-[50%] invert-[90%] hue-rotate-180" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://maps.google.com/maps?q=33.5652891,-7.627224&z=17&output=embed"></iframe>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="border-t border-cream/5 py-10">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row justify-between items-center gap-4 text-sm text-cream/45">
+    <p>© <span id="year"></span> Healthy Coffee · Casablanca</p>
+    <div class="flex gap-6"><a href="#menu" class="hover:text-crema">Menu</a><a href="#ambiance" class="hover:text-crema">Ambiance</a><a href="#contact" class="hover:text-crema">Contact</a><a href="https://www.instagram.com/healthy.coffee22/" target="_blank" rel="noopener" class="hover:text-crema">Instagram</a></div>
+  </div>
+</footer>
+
+<a href="tel:+212522529666" aria-label="Appeler" class="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full bg-crema text-forest grid place-items-center shadow-xl hover:scale-110 transition">
+  <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>
+</a>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<script>
+/* ---------- Illustrations SVG ---------- */
+const bg = (id,c) => `<defs><radialGradient id="r${id}" cx="50%" cy="55%" r="60%"><stop offset="0" stop-color="${c}" stop-opacity=".35"/><stop offset="1" stop-color="${c}" stop-opacity="0"/></radialGradient></defs><rect width="400" height="260" fill="url(#r${id})"/><ellipse cx="200" cy="228" rx="140" ry="10" fill="#000" opacity=".35"/>`;
+const steam = `<g class="steam" stroke="#f6efe4" stroke-opacity=".6" stroke-width="4" fill="none" stroke-linecap="round"><path d="M180 70c-10 12 10 18 0 30"/><path d="M200 62c-10 12 10 18 0 30"/><path d="M220 70c-10 12 10 18 0 30"/></g>`;
+const cup = (fill, foam, art='') => `<ellipse cx="200" cy="208" rx="110" ry="16" fill="#f6efe4"/><ellipse cx="200" cy="204" rx="92" ry="11" fill="#e5dccd"/>
+  <path d="M120 112 h160 l-14 82 a14 14 0 0 1 -14 12 h-104 a14 14 0 0 1 -14 -12z" fill="#f6efe4"/>
+  <path d="M278 128 h12 a22 22 0 0 1 0 44 h-18" fill="none" stroke="#f6efe4" stroke-width="10"/>
+  <ellipse cx="200" cy="112" rx="80" ry="14" fill="${fill}"/><ellipse cx="200" cy="112" rx="64" ry="10" fill="${foam}"/>${art}`;
+const ART = {
+  allonge: bg('a','#e8c99b') + steam + cup('#5a3520','#7a4a2c'),
+  cappu: bg('c','#a7c4a0') + steam + cup('#6b4226','#e8c99b', `<path d="M200 104c-10-6-18 2-12 8 4 4 12 6 12 6s8-2 12-6c6-6-2-14-12-8z" fill="#f6efe4"/>`),
+  latte: bg('l','#e8c99b') + `<path d="M160 60 h80 l-8 150 a12 12 0 0 1 -12 10 h-40 a12 12 0 0 1 -12 -10z" fill="#f6efe4" opacity=".15" stroke="#f6efe4" stroke-opacity=".4" stroke-width="3"/>
+    <path d="M164 120 h72 l-4 88 a10 10 0 0 1 -10 8 h-44 a10 10 0 0 1 -10 -8z" fill="#8b5a3c"/><path d="M162 90 h76 l-2 30 h-72z" fill="#e8c99b"/><path d="M161 70 h78 l-1 20 h-76z" fill="#f6efe4"/>
+    <path d="M220 40 l-14 60" stroke="#4ade80" stroke-width="6" stroke-linecap="round"/>`,
+  breakfast: bg('b','#e8c99b') + `<ellipse cx="200" cy="160" rx="150" ry="58" fill="#f6efe4"/><ellipse cx="200" cy="156" rx="128" ry="46" fill="#e5dccd"/>
+    <ellipse cx="160" cy="150" rx="40" ry="24" fill="#fff"/><circle cx="160" cy="148" r="13" fill="#f5b83d"/>
+    <rect x="212" y="128" width="64" height="40" rx="10" fill="#d49a5b" transform="rotate(-8 244 148)"/><rect x="222" y="134" width="44" height="28" rx="6" fill="#e8b878" transform="rotate(-8 244 148)"/>
+    <circle cx="250" cy="182" r="10" fill="#4ade80"/><circle cx="268" cy="176" r="8" fill="#ef4444"/><circle cx="120" cy="176" r="9" fill="#ef4444" opacity=".85"/>`,
+  omelette: bg('o','#f5b83d') + `<ellipse cx="200" cy="168" rx="140" ry="50" fill="#1f2a22" stroke="#3a4a3e" stroke-width="6"/>
+    <path d="M110 168 c 10 -50 170 -50 180 0 c -30 26 -150 26 -180 0z" fill="#f5c84d"/><path d="M140 158 c30-20 90-20 120 0" stroke="#e0a92b" stroke-width="4" fill="none"/>
+    <circle cx="170" cy="150" r="5" fill="#4ade80"/><circle cx="215" cy="146" r="5" fill="#ef4444"/><circle cx="240" cy="158" r="4" fill="#4ade80"/>
+    <rect x="290" y="160" width="80" height="12" rx="6" fill="#3a4a3e" transform="rotate(-10 290 166)"/>`,
+  juice: bg('j','#f97316') + `<path d="M150 60 h100 l-10 150 a12 12 0 0 1 -12 10 h-56 a12 12 0 0 1 -12 -10z" fill="#f6efe4" opacity=".15" stroke="#f6efe4" stroke-opacity=".5" stroke-width="3"/>
+    <path d="M155 90 h90 l-8 118 a10 10 0 0 1 -10 8 h-54 a10 10 0 0 1 -10 -8z" fill="#fb923c"/><path d="M155 90 h90 l-2 16 h-86z" fill="#fdba74"/>
+    <circle cx="246" cy="76" r="26" fill="#facc15" stroke="#fde047" stroke-width="4"/><path d="M246 52 v48 M222 76 h48 M229 59 l34 34 M263 59 l-34 34" stroke="#fde68a" stroke-width="2"/>
+    <path d="M215 40 l-18 70" stroke="#4ade80" stroke-width="6" stroke-linecap="round"/>`,
+  pastry: bg('p','#e8c99b') + `<ellipse cx="200" cy="192" rx="130" ry="20" fill="#f6efe4"/>
+    <path d="M110 180 c 0 -60 60 -90 90 -90 s 90 30 90 90z" fill="#c7843f"/><path d="M130 180 c 10 -40 50 -70 70 -70" stroke="#a3652a" stroke-width="6" fill="none"/><path d="M270 180 c -10 -40 -50 -70 -70 -70" stroke="#a3652a" stroke-width="6" fill="none"/><path d="M200 92 v88" stroke="#a3652a" stroke-width="6"/>
+    <circle cx="300" cy="110" r="4" fill="#f6efe4"/><circle cx="90" cy="130" r="3" fill="#f6efe4"/>`,
+  crepe: bg('cr','#a7c4a0') + `<ellipse cx="200" cy="180" rx="140" ry="44" fill="#f6efe4"/><path d="M90 170 L 200 100 L 310 170 Q 200 200 90 170z" fill="#e7b46a"/><path d="M90 170 L 200 100 L 310 170" stroke="#c48a3c" stroke-width="4" fill="none"/>
+    <path d="M150 160 q 50 -20 100 0" stroke="#5a3520" stroke-width="8" fill="none" stroke-linecap="round"/><circle cx="160" cy="130" r="8" fill="#ef4444"/><circle cx="240" cy="132" r="8" fill="#ef4444"/><circle cx="200" cy="120" r="6" fill="#4ade80"/>`,
+  tea: bg('t','#4ade80') + steam + `<ellipse cx="200" cy="208" rx="100" ry="14" fill="#c9a24a"/><path d="M130 120 h140 l-10 80 a10 10 0 0 1 -10 8 h-100 a10 10 0 0 1 -10 -8z" fill="#f6efe4" opacity=".2" stroke="#f6efe4" stroke-opacity=".6" stroke-width="3"/>
+    <path d="M134 140 h132 l-7 58 h-118z" fill="#65a30d" opacity=".8"/><path d="M180 136 c 10 -20 30 -20 40 0 c -10 6 -30 6 -40 0z" fill="#4ade80"/>`
+};
+
+/* ---------- Menu (à compléter avec la vraie carte + prix) ---------- */
+const MENU = [
+  { cat:'Cafés', n:'Café allongé', d:'Espresso allongé, doux et aromatique.', a:'allonge' },
+  { cat:'Cafés', n:'Cappuccino', d:'Espresso, lait mousseux et touche de cacao.', a:'cappu' },
+  { cat:'Cafés', n:'Latte', d:'Lait velouté et espresso, chaud ou glacé.', a:'latte' },
+  { cat:'Petit-déj', n:'Petit-déjeuner', d:'Œuf, pain grillé, fruits frais et boisson chaude.', a:'breakfast' },
+  { cat:'Petit-déj', n:'Omelette', d:'Omelette garnie, servie avec pain et salade.', a:'omelette' },
+  { cat:'Douceurs', n:'Viennoiseries', d:'Croissants et pâtisseries du jour.', a:'pastry' },
+  { cat:'Douceurs', n:'Crêpes', d:'Sucrées ou salées, garnies à votre goût.', a:'crepe' },
+  { cat:'Boissons', n:'Jus frais', d:'Orange pressée et jus de saison.', a:'juice' },
+  { cat:'Boissons', n:'Thé à la menthe', d:'Thé vert à la menthe fraîche, à la marocaine.', a:'tea' }
+];
+const cats = ['Tout', ...new Set(MENU.map(m => m.cat))];
+const tabs = document.getElementById('tabs'), grid = document.getElementById('menuGrid');
+tabs.innerHTML = cats.map((c,i) => `<button class="tab ${i?'':'active'} glass px-4 py-2 rounded-full text-sm font-semibold transition" data-c="${c}">${c}</button>`).join('');
+function render(cat) {
+  grid.innerHTML = MENU.filter(m => cat==='Tout' || m.cat===cat).map(m => `
+  <div class="menu-card" style="perspective:1000px">
+    <div class="tilt card-glow glass rounded-3xl h-full flex flex-col overflow-hidden group">
+      <div class="relative h-48 border-b border-cream/5 overflow-hidden bg-gradient-to-b from-cream/5 to-transparent">
+        <svg class="pop w-full h-full transition-transform duration-500 group-hover:scale-110" viewBox="0 0 400 260" role="img" aria-label="${m.n}">${ART[m.a]}</svg>
+        <span class="absolute top-4 left-4 text-[10px] font-semibold tracking-widest px-3 py-1 rounded-full bg-black/40 border border-cream/10 text-crema">${m.cat.toUpperCase()}</span>
+      </div>
+      <div class="p-6"><h3 class="font-display text-2xl font-semibold mb-2">${m.n}</h3><p class="text-cream/60">${m.d}</p></div>
+    </div>
+  </div>`).join('');
+  bindTilt();
+  gsap.from('.menu-card', { y:30, opacity:0, duration:.6, stagger:.06, ease:'power2.out' });
+}
+tabs.addEventListener('click', e => {
+  const b = e.target.closest('.tab'); if (!b) return;
+  tabs.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t===b)); render(b.dataset.c);
+});
+
+/* Galerie (illustrations en attendant les vraies photos) */
+document.getElementById('gallery').innerHTML = ['cappu','pastry','breakfast','juice'].map((k,i) =>
+  `<div class="glass rounded-3xl overflow-hidden ${i%2?'mt-10':''}"><svg class="w-full h-48" viewBox="0 0 400 260">${ART[k]}</svg></div>`).join('');
+
+function bindTilt() {
+  document.querySelectorAll('.tilt').forEach(card => {
+    card.onmousemove = e => { const r = card.getBoundingClientRect(), x = (e.clientX-r.left)/r.width, y = (e.clientY-r.top)/r.height;
+      card.style.transform = `rotateY(${(x-.5)*12}deg) rotateX(${(.5-y)*12}deg)`; card.style.setProperty('--mx', x*100+'%'); card.style.setProperty('--my', y*100+'%'); };
+    card.onmouseleave = () => card.style.transform = '';
+  });
+}
+
+/* Nav */
+const nav = document.getElementById('nav');
+addEventListener('scroll', () => nav.classList.toggle('glass', scrollY > 40), { passive:true });
+const menu = document.getElementById('mobileMenu');
+document.getElementById('burger').onclick = () => { menu.classList.toggle('hidden'); menu.classList.toggle('flex'); };
+menu.querySelectorAll('a').forEach(a => a.onclick = () => { menu.classList.add('hidden'); menu.classList.remove('flex'); });
+document.getElementById('year').textContent = new Date().getFullYear();
+
+/* ---------- Scène 3D : tasse + grains ---------- */
+const host = document.getElementById('scene');
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(38, host.clientWidth/host.clientHeight, .1, 100);
+camera.position.set(0, 2.2, innerWidth < 768 ? 10 : 8);
+camera.lookAt(0, .6, 0);
+const renderer = new THREE.WebGLRenderer({ antialias:true, alpha:true });
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2)); renderer.setSize(host.clientWidth, host.clientHeight);
+host.appendChild(renderer.domElement);
+
+scene.add(new THREE.AmbientLight(0xfff4e0, .5));
+const key = new THREE.DirectionalLight(0xffffff, 1); key.position.set(4, 7, 5); scene.add(key);
+const warm = new THREE.PointLight(0xe8c99b, 2, 15); warm.position.set(-4, 3, 3); scene.add(warm);
+const green = new THREE.PointLight(0x4ade80, 1.2, 14); green.position.set(4, 0, 2); scene.add(green);
+
+const mPorcelain = new THREE.MeshStandardMaterial({ color:0xf6efe4, roughness:.25, metalness:.05, side:THREE.DoubleSide });
+const mCoffee = new THREE.MeshStandardMaterial({ color:0x5a3520, roughness:.3 });
+const mFoam = new THREE.MeshStandardMaterial({ color:0xe8c99b, roughness:.6 });
+const mBean = new THREE.MeshStandardMaterial({ color:0x4a2c17, roughness:.45, metalness:.1 });
+const mLeaf = new THREE.MeshStandardMaterial({ color:0x2f7d4a, roughness:.5, side:THREE.DoubleSide });
+
+const cupG = new THREE.Group();
+const prof = [];
+for (let i = 0; i <= 12; i++) { const t = i/12; prof.push(new THREE.Vector2(.55 + Math.pow(t,1.6)*.6, t*1.3)); }
+prof.unshift(new THREE.Vector2(0, 0));
+const body = new THREE.Mesh(new THREE.LatheGeometry(prof, 64), mPorcelain); cupG.add(body);
+const coffee = new THREE.Mesh(new THREE.CircleGeometry(1.1, 64), mCoffee); coffee.rotation.x = -Math.PI/2; coffee.position.y = 1.18; cupG.add(coffee);
+const foam = new THREE.Mesh(new THREE.CircleGeometry(.75, 64), mFoam); foam.rotation.x = -Math.PI/2; foam.position.y = 1.19; cupG.add(foam);
+const heart = new THREE.Shape(); heart.moveTo(0,-.25); heart.bezierCurveTo(-.45,.05,-.25,.4,0,.18); heart.bezierCurveTo(.25,.4,.45,.05,0,-.25);
+const art = new THREE.Mesh(new THREE.ShapeGeometry(heart), new THREE.MeshStandardMaterial({ color:0xf6efe4 })); art.rotation.x = -Math.PI/2; art.position.y = 1.2; cupG.add(art);
+const handle = new THREE.Mesh(new THREE.TorusGeometry(.38, .08, 16, 40, Math.PI*1.2), mPorcelain); handle.position.set(1.12, .7, 0); handle.rotation.z = -Math.PI*.6; cupG.add(handle);
+const saucer = new THREE.Mesh(new THREE.CylinderGeometry(1.9, 1.6, .12, 64), mPorcelain); saucer.position.y = -.06; cupG.add(saucer);
+const rim = new THREE.Mesh(new THREE.TorusGeometry(1.88, .05, 12, 80), new THREE.MeshStandardMaterial({ color:0xc9a24a, metalness:.9, roughness:.2 })); rim.rotation.x = Math.PI/2; rim.position.y = 0; cupG.add(rim);
+cupG.position.y = -.6;
+const rig = new THREE.Group(); rig.add(cupG); scene.add(rig);
+
+/* Vapeur */
+const steamTex = (() => { const c = document.createElement('canvas'); c.width = c.height = 64; const x = c.getContext('2d');
+  const g = x.createRadialGradient(32,32,0,32,32,32); g.addColorStop(0,'rgba(255,255,255,.55)'); g.addColorStop(1,'rgba(255,255,255,0)'); x.fillStyle = g; x.fillRect(0,0,64,64); return new THREE.CanvasTexture(c); })();
+const puffs = [];
+for (let i = 0; i < 26; i++) {
+  const s = new THREE.Sprite(new THREE.SpriteMaterial({ map:steamTex, transparent:true, depthWrite:false, opacity:0 }));
+  s.userData = { t: Math.random(), x: (Math.random()-.5)*.6, sp: .15 + Math.random()*.15 }; rig.add(s); puffs.push(s);
+}
+
+/* Grains de café flottants */
+const beanGeo = new THREE.SphereGeometry(.16, 20, 14); beanGeo.scale(1, .7, 1.35);
+const beans = [];
+for (let i = 0; i < 16; i++) {
+  const b = new THREE.Group(); b.add(new THREE.Mesh(beanGeo, mBean));
+  const groove = new THREE.Mesh(new THREE.TorusGeometry(.12, .012, 6, 20, Math.PI), new THREE.MeshStandardMaterial({ color:0x2a170b })); groove.rotation.y = Math.PI/2; groove.position.y = .1; b.add(groove);
+  const a = (i/16)*Math.PI*2, r = 2.6 + Math.random()*1.4;
+  b.position.set(Math.cos(a)*r, (Math.random()-.3)*3, Math.sin(a)*r - .5);
+  b.userData = { a, r, y: b.position.y, sp: .1 + Math.random()*.15, rs: Math.random()*.02 + .005 };
+  b.rotation.set(Math.random()*6, Math.random()*6, 0); scene.add(b); beans.push(b);
+}
+/* Feuilles */
+const leafShape = new THREE.Shape(); leafShape.moveTo(0,0); leafShape.quadraticCurveTo(.25,.3,0,.7); leafShape.quadraticCurveTo(-.25,.3,0,0);
+const leaves = [];
+for (let i = 0; i < 6; i++) {
+  const l = new THREE.Mesh(new THREE.ShapeGeometry(leafShape), mLeaf);
+  l.position.set((Math.random()-.5)*7, Math.random()*3 - .5, -1.5 - Math.random()*2); l.userData = { y:l.position.y, ph:Math.random()*6 };
+  scene.add(l); leaves.push(l);
+}
+
+let mx = 0, my = 0, scrollRot = 0;
+addEventListener('pointermove', e => { mx = e.clientX/innerWidth - .5; my = e.clientY/innerHeight - .5; });
+const clock = new THREE.Clock();
+(function loop() {
+  const t = clock.getElapsedTime(), dt = Math.min(clock.getDelta(), .05);
+  rig.rotation.y += ((mx*.8 + scrollRot + t*.15) - rig.rotation.y) * .05;
+  rig.rotation.x += ((my*.2) - rig.rotation.x) * .05;
+  cupG.position.y = -.6 + Math.sin(t*1.2)*.06;
+  puffs.forEach(p => { const u = p.userData; u.t = (u.t + .004 + u.sp*.01) % 1;
+    p.position.set(u.x + Math.sin(u.t*6 + u.x*10)*.25, .7 + u.t*2.6, Math.cos(u.t*5)*.15);
+    p.scale.setScalar(.4 + u.t*1.1); p.material.opacity = Math.sin(u.t*Math.PI)*.45; });
+  beans.forEach(b => { const u = b.userData; u.a += u.sp*.006;
+    b.position.x = Math.cos(u.a)*u.r; b.position.z = Math.sin(u.a)*u.r - .5; b.position.y = u.y + Math.sin(t + u.a*3)*.2;
+    b.rotation.x += u.rs; b.rotation.y += u.rs*1.3; });
+  leaves.forEach(l => { l.position.y = l.userData.y + Math.sin(t*.6 + l.userData.ph)*.25; l.rotation.z = Math.sin(t*.5 + l.userData.ph)*.5; l.rotation.y = t*.3 + l.userData.ph; });
+  renderer.render(scene, camera); requestAnimationFrame(loop);
+})();
+addEventListener('resize', () => { camera.aspect = host.clientWidth/host.clientHeight; camera.position.z = innerWidth < 768 ? 10 : 8; camera.updateProjectionMatrix(); renderer.setSize(host.clientWidth, host.clientHeight); });
+
+/* ---------- GSAP ---------- */
+gsap.registerPlugin(ScrollTrigger);
+ScrollTrigger.create({ trigger:'body', start:'top top', end:'bottom bottom', onUpdate: s => scrollRot = s.progress*Math.PI*2 });
+gsap.utils.toArray('.reveal').forEach(el => gsap.to(el, { opacity:1, y:0, duration:1, ease:'power3.out', scrollTrigger:{ trigger:el, start:'top 88%' } }));
+render('Tout');
+
+const bar = document.getElementById('loadbar'); let p = 0;
+const iv = setInterval(() => { p = Math.min(100, p + Math.random()*25); bar.style.width = p + '%'; if (p >= 100) { clearInterval(iv); finish(); } }, 120);
+function finish() {
+  document.getElementById('loader').classList.add('done');
+  gsap.from('.hero-in', { y:50, opacity:0, duration:1, stagger:.12, ease:'power3.out', delay:.2 });
+  gsap.from(rig.scale, { x:.3, y:.3, z:.3, duration:1.6, ease:'elastic.out(1,.6)', delay:.1 });
+}
+</script>
+</body>
+</html>
